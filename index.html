@@ -8,14 +8,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwindcss.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-paper': '#1a1a2e',
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-paper text-gray-800 font-sans antialiased">
+<body class="bg-paper text-gray-800 font-sans antialiased transition-colors duration-300 dark:bg-dark-paper dark:text-gray-100">
 
     <div class="fixed-bg"></div>
 
-    <div class="max-w-5xl mx-auto px-6 py-20 relative z-10">
+    <!-- Header Navigation Bar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b-2 border-gray-800 dark:border-gray-300 shadow-[0_4px_0px_#1f2937] dark:shadow-[0_4px_0px_#d1d5db] transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Theme Toggle (Left) -->
+            <button id="dark-mode-toggle" class="theme-toggle p-2 rounded-lg border-2 border-gray-800 transition-all hover:-translate-y-1 hover:-translate-x-1" aria-label="Toggle Dark Mode">
+                <i class="fa-solid fa-moon"></i>
+                <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <!-- Spacer (Center) -->
+            <div class="flex-1"></div>
+
+            <!-- Navigation Buttons (Right) -->
+            <div class="flex gap-4">
+                <button class="nav-btn" data-target="home" aria-label="Home">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="hidden sm:inline ml-2">Home</span>
+                </button>
+                <button class="nav-btn" data-target="documentation" aria-label="Documentation">
+                    <i class="fa-solid fa-camera"></i>
+                    <span class="hidden sm:inline ml-2">Documentation</span>
+                </button>
+                <button class="nav-btn" data-target="design" aria-label="Design">
+                    <i class="fa-solid fa-palette"></i>
+                    <span class="hidden sm:inline ml-2">Design</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-5xl mx-auto px-6 py-20 relative z-10 pt-32">
+        
+        <div id="home" class="scroll-section"></div>
         
         <header class="mb-16 flex flex-col md:flex-row items-center md:items-stretch justify-center md:justify-start gap-10">
             
@@ -34,7 +78,7 @@
                         <a href="mailto:dionpuji12@gmail.com" class="social-icon" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
                     </div>
                     
-                    <a href="https://saweria.co/RACHUNTUL" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-400 text-gray-900 font-bold tracking-wider uppercase text-sm border-2 border-gray-800 shadow-[4px_4px_0px_#1f2937] transition-all hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#1f2937] active:translate-y-0 active:translate-x-0 active:shadow-none">
+                    <a href="https://saweria.co/RACHUNTUL" target="_blank" class="btn-saweria inline-flex items-center gap-2 px-5 py-2.5 font-bold tracking-wider uppercase text-sm border-2 transition-all hover:-translate-y-1 hover:-translate-x-1 active:translate-y-0 active:translate-x-0">
                         <i class="fa-solid fa-mug-hot"></i> Traktir Kopi
                     </a>
                 </div>
@@ -42,7 +86,7 @@
 
         </header>
 
-        <section class="mb-20">
+        <section id="documentation" class="mb-20 scroll-section">
             <h2 class="text-2xl font-bold uppercase tracking-wider mb-8 flex items-center gap-3">
                 <i class="fa-solid fa-camera"></i> Documentation
             </h2>
@@ -51,7 +95,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="design" class="scroll-section">
             <h2 class="text-2xl font-bold uppercase tracking-wider mb-8 flex items-center gap-3">
                 <i class="fa-solid fa-palette"></i> Desain
             </h2>

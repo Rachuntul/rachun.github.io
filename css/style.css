@@ -1,9 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
 
+/* Catppuccin Mocha Theme */
+:root {
+    /* Light Mode - Mocha Inverted */
+    --bg-light: #f5e6d3;
+    --bg-dark: #1e1e2e;
+    --card-light: #fffbf7;
+    --card-dark: #313244;
+    --text-light: #1e1e2e;
+    --text-light-secondary: #6c7086;
+    --text-dark: #cdd6f4;
+    --text-dark-secondary: #bac2de;
+    --dot-light: #bac2de;
+    --dot-dark: #45475a;
+    --border-light: #1e1e2e;
+    --border-dark: #f5e0dc;
+    
+    /* Catppuccin Mocha Accent Colors */
+    --mocha-rosewater: #f5e0dc;
+    --mocha-flamingo: #f2cdcd;
+    --mocha-pink: #f5c2e7;
+    --mocha-mauve: #cba6f7;
+    --mocha-red: #f38ba8;
+    --mocha-maroon: #eba0ac;
+    --mocha-peach: #fab387;
+    --mocha-yellow: #f9e2af;
+    --mocha-green: #a6e3a1;
+    --mocha-teal: #94e2d5;
+    --mocha-sky: #89dceb;
+    --mocha-sapphire: #74c7ec;
+    --mocha-blue: #89b4fa;
+    --mocha-lavender: #b4befe;
+}
+
 body {
     font-family: 'Space Grotesk', sans-serif;
-    background-color: #e5e5f7;
+    background-color: var(--bg-light);
     margin: 0;
+}
+
+body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
 }
 
 /* Background dengan pola dot statis saat discroll */
@@ -13,32 +51,47 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-image: radial-gradient(var(--dot-light) 1px, transparent 1px);
     background-size: 20px 20px;
     z-index: 0;
+    transition: background-image 0.3s ease;
+}
+
+body.dark .fixed-bg {
+    background-image: radial-gradient(var(--dot-dark) 1px, transparent 1px);
 }
 
 /* Efek 2D Papercut yang tegas dan tajam */
 .papercut-layer {
-    background-color: #ffffff;
-    border: 2px solid #1f2937;
-    /* Bayangan tajam tanpa blur ala 2D flat/papercut */
-    box-shadow: 8px 8px 0px #1f2937;
+    background-color: var(--card-light);
+    border: 2px solid var(--border-light);
+    box-shadow: 8px 8px 0px var(--text-light);
     border-radius: 0px; 
+}
+
+body.dark .papercut-layer {
+    background-color: var(--card-dark);
+    border: 2px solid var(--border-dark);
+    box-shadow: 8px 8px 0px var(--text-dark-secondary);
 }
 
 /* Kotak Foto Profil */
 .profile-frame {
-    width: 220px; /* Dilebarkan agar proporsional dengan tingginya */
-    /* Tingginya sengaja dihapus agar otomatis mengikuti tinggi kotak sebelahnya */
-    flex-shrink: 0; /* Mencegah kotak foto menyusut tertekan kotak nama */
-    border: 2px solid #1f2937;
-    box-shadow: 6px 6px 0px #1f2937;
+    width: 220px;
+    flex-shrink: 0;
+    border: 2px solid var(--border-light);
+    box-shadow: 6px 6px 0px var(--text-light);
     background-color: #f3f4f6;
     overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Khusus di HP (layar kecil), kita paksakan tinggi fotonya agar tetap kotak */
+body.dark .profile-frame {
+    border: 2px solid var(--border-dark);
+    box-shadow: 6px 6px 0px var(--text-dark-secondary);
+    background-color: var(--card-dark);
+}
+
 @media (max-width: 768px) {
     .profile-frame {
         height: 220px;
@@ -46,26 +99,45 @@ body {
 }
 
 .profile-frame:hover {
-    transform: translate(-4px, -4px); /* Geser ke kiri atas */
-    box-shadow: 10px 10px 0px #1f2937; /* Bayangan menebal ke kanan bawah */
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px var(--text-light);
+}
+
+body.dark .profile-frame:hover {
+    box-shadow: 10px 10px 0px var(--text-dark-secondary);
 }
 
 .name-card {
-    background-color: #ffffff;
-    border: 2px solid #1f2937;
-    box-shadow: 6px 6px 0px #1f2937;
+    background-color: var(--card-light);
+    border: 2px solid var(--border-light);
+    box-shadow: 6px 6px 0px var(--text-light);
     border-radius: 0px;
+    transition: all 0.3s ease;
+}
+
+body.dark .name-card {
+    background-color: var(--card-dark);
+    border: 2px solid var(--border-dark);
+    box-shadow: 6px 6px 0px var(--text-dark-secondary);
 }
 
 .name-card:hover {
-    transform: translate(-4px, -4px); /* Geser ke kiri atas */
-    box-shadow: 10px 10px 0px #1f2937; /* Bayangan menebal ke kanan bawah */
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px var(--text-light);
+}
+
+body.dark .name-card:hover {
+    box-shadow: 10px 10px 0px var(--text-dark-secondary);
 }
 
 .social-icon {
     font-size: 1.5rem;
-    color: #1f2937;
-    transition: transform 0.2s ease;
+    color: var(--text-light);
+    transition: transform 0.2s ease, text-shadow 0.2s ease, color 0.3s ease;
+}
+
+body.dark .social-icon {
+    color: var(--text-dark);
 }
 
 .social-icon:hover {
@@ -85,16 +157,22 @@ body {
 
 /* Desain Kartu Foto */
 .photo-card {
-    break-inside: avoid; /* Mencegah foto terpotong di antara kolom */
-    page-break-inside: avoid; /* Dukungan browser lama */
-    display: inline-block; /* KUNCI FIX: Memaksa elemen tetap utuh 1 blok */
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: inline-block;
     width: 100%;
     margin-bottom: 1.5rem;
-    background-color: #ffffff;
-    border: 2px solid #1f2937;
-    box-shadow: 6px 6px 0px #1f2937;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--card-light);
+    border: 2px solid var(--border-light);
+    box-shadow: 6px 6px 0px var(--text-light);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
     overflow: hidden;
+}
+
+body.dark .photo-card {
+    background-color: var(--card-dark);
+    border: 2px solid var(--border-dark);
+    box-shadow: 6px 6px 0px var(--text-dark-secondary);
 }
 
 .photo-card img {
@@ -106,14 +184,152 @@ body {
 
 .photo-card:hover {
     transform: translate(-4px, -4px);
-    box-shadow: 10px 10px 0px #1f2937;
+    box-shadow: 10px 10px 0px var(--text-light);
+}
+
+body.dark .photo-card:hover {
+    box-shadow: 10px 10px 0px var(--text-dark-secondary);
 }
 
 /* KUNCI FIX UNTUK KOTAK KOSONG */
 .empty-gallery {
-    column-span: all; /* Memaksa kotak membentang penuh melewati semua kolom */
+    column-span: all;
+    background-color: #d1d5db !important;
+    border-color: var(--border-light) !important;
+}
+
+body.dark .empty-gallery {
+    background-color: var(--card-dark) !important;
+    border-color: var(--border-dark) !important;
 }
 
 .photo-card:hover img {
     filter: grayscale(0%);
+}
+
+/* ============================================
+   NAVBAR STYLING
+   ============================================ */
+#navbar {
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+body.dark #navbar {
+    background-color: rgba(45, 45, 68, 0.95);
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--border-light);
+    background-color: transparent;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.dark .nav-btn {
+    border-color: var(--border-dark);
+    color: var(--text-dark);
+}
+
+.nav-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0px var(--text-light);
+}
+
+body.dark .nav-btn:hover {
+    box-shadow: 3px 3px 0px var(--text-dark-secondary);
+}
+
+.nav-btn.active {
+    background-color: var(--text-light);
+    color: var(--card-light);
+}
+
+body.dark .nav-btn.active {
+    background-color: var(--border-dark);
+    color: var(--card-dark);
+}
+
+/* Scroll section targeting */
+.scroll-section {
+    scroll-margin-top: 120px;
+}
+
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+.theme-toggle {
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    font-size: 1.25rem;
+    box-shadow: 3px 3px 0px var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-color: var(--border-light);
+}
+
+.theme-toggle:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--bg-dark);
+}
+
+body.dark .theme-toggle {
+    background-color: var(--mocha-yellow);
+    color: var(--bg-dark);
+    box-shadow: 3px 3px 0px var(--mocha-rosewater);
+}
+
+body.dark .theme-toggle:hover {
+    box-shadow: 5px 5px 0px var(--mocha-rosewater);
+}
+
+/* Icon visibility control */
+.theme-toggle i.fa-moon {
+    display: inline;
+}
+
+.theme-toggle i.fa-sun {
+    display: none;
+}
+
+body.dark .theme-toggle i.fa-moon {
+    display: none;
+}
+
+body.dark .theme-toggle i.fa-sun {
+    display: inline;
+}
+
+/* ============================================
+   TRAKTIR KOPI BUTTON
+   ============================================ */
+.btn-saweria {
+    background-color: var(--mocha-yellow) !important;
+    color: var(--bg-dark) !important;
+    border-color: var(--bg-dark) !important;
+    box-shadow: 4px 4px 0px var(--bg-dark) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-saweria:hover {
+    transform: translate(-1px, -1px) !important;
+    box-shadow: 8px 8px 0px var(--bg-dark) !important;
+}
+
+.btn-saweria:active {
+    transform: translate(0, 0) !important;
+    box-shadow: 0 0 0 var(--bg-dark) !important;
 }
