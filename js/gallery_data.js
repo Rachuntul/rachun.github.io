@@ -1,0 +1,1 @@
+window.galleryPhotos = ["img/gallery/Untitled1.webp", "img/gallery/Untitled.webp"];

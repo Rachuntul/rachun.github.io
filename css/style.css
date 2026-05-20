@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #e5e5f7;
+    margin: 0;
+}
+
+/* Background dengan pola dot statis saat discroll */
+.fixed-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 0;
+}
+
+/* Efek 2D Papercut yang tegas dan tajam */
+.papercut-layer {
+    background-color: #ffffff;
+    border: 2px solid #1f2937;
+    /* Bayangan tajam tanpa blur ala 2D flat/papercut */
+    box-shadow: 8px 8px 0px #1f2937;
+    border-radius: 0px; 
+}
+
+/* Kotak Foto Profil */
+.profile-frame {
+    width: 220px; /* Dilebarkan agar proporsional dengan tingginya */
+    /* Tingginya sengaja dihapus agar otomatis mengikuti tinggi kotak sebelahnya */
+    flex-shrink: 0; /* Mencegah kotak foto menyusut tertekan kotak nama */
+    border: 2px solid #1f2937;
+    box-shadow: 6px 6px 0px #1f2937;
+    background-color: #f3f4f6;
+    overflow: hidden;
+}
+
+/* Khusus di HP (layar kecil), kita paksakan tinggi fotonya agar tetap kotak */
+@media (max-width: 768px) {
+    .profile-frame {
+        height: 220px;
+    }
+}
+
+.profile-frame:hover {
+    transform: translate(-4px, -4px); /* Geser ke kiri atas */
+    box-shadow: 10px 10px 0px #1f2937; /* Bayangan menebal ke kanan bawah */
+}
+
+.name-card {
+    background-color: #ffffff;
+    border: 2px solid #1f2937;
+    box-shadow: 6px 6px 0px #1f2937;
+    border-radius: 0px;
+}
+
+.name-card:hover {
+    transform: translate(-4px, -4px); /* Geser ke kiri atas */
+    box-shadow: 10px 10px 0px #1f2937; /* Bayangan menebal ke kanan bawah */
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    color: #1f2937;
+    transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: translate(-2px, -2px);
+    text-shadow: 2px 2px 0px #9ca3af;
+}
+
+/* Masonry Layout Otomatis untuk Galeri */
+.masonry-gallery {
+    column-count: 1;
+    column-gap: 1.5rem;
+}
+
+/* Responsif: 2 kolom di tablet, 3 kolom di desktop */
+@media (min-width: 768px) { .masonry-gallery { column-count: 2; } }
+@media (min-width: 1024px) { .masonry-gallery { column-count: 3; } }
+
+/* Desain Kartu Foto */
+.photo-card {
+    break-inside: avoid; /* Mencegah foto terpotong di antara kolom */
+    page-break-inside: avoid; /* Dukungan browser lama */
+    display: inline-block; /* KUNCI FIX: Memaksa elemen tetap utuh 1 blok */
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background-color: #ffffff;
+    border: 2px solid #1f2937;
+    box-shadow: 6px 6px 0px #1f2937;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: filter 0.4s ease;
+}
+
+.photo-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px #1f2937;
+}
+
+/* KUNCI FIX UNTUK KOTAK KOSONG */
+.empty-gallery {
+    column-span: all; /* Memaksa kotak membentang penuh melewati semua kolom */
+}
+
+.photo-card:hover img {
+    filter: grayscale(0%);
+}
