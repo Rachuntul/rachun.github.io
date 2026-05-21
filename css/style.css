@@ -31,6 +31,9 @@
     --mocha-sapphire: #74c7ec;
     --mocha-blue: #89b4fa;
     --mocha-lavender: #b4befe;
+    
+    /* Saweria Yellow - Bright and Vibrant */
+    --saweria-yellow: #ffd700;
 }
 
 body {
@@ -142,7 +145,12 @@ body.dark .social-icon {
 
 .social-icon:hover {
     transform: translate(-2px, -2px);
-    text-shadow: 2px 2px 0px #9ca3af;
+    text-shadow: 2px 2px 0px var(--text-light-secondary);
+}
+
+body.dark .social-icon:hover {
+    text-shadow: 2px 2px 0px var(--text-dark-secondary);
+    color: var(--saweria-yellow);
 }
 
 /* Masonry Layout Otomatis untuk Galeri */
@@ -194,13 +202,25 @@ body.dark .photo-card:hover {
 /* KUNCI FIX UNTUK KOTAK KOSONG */
 .empty-gallery {
     column-span: all;
-    background-color: #d1d5db !important;
-    border-color: var(--border-light) !important;
+    background-color: var(--card-light) !important;
+    border: 2px solid var(--border-light) !important;
+    box-shadow: 6px 6px 0px var(--text-light) !important;
+    transition: all 0.3s ease;
 }
 
 body.dark .empty-gallery {
     background-color: var(--card-dark) !important;
     border-color: var(--border-dark) !important;
+    box-shadow: 6px 6px 0px var(--text-dark-secondary) !important;
+}
+
+.empty-gallery i {
+    color: var(--text-light-secondary);
+    opacity: 0.5;
+}
+
+body.dark .empty-gallery i {
+    color: var(--text-dark-secondary);
 }
 
 .photo-card:hover img {
@@ -212,11 +232,16 @@ body.dark .empty-gallery {
    ============================================ */
 #navbar {
     backdrop-filter: blur(8px);
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--card-light);
+    border-bottom: 2px solid var(--border-light);
+    box-shadow: 0 4px 0px var(--text-light);
+    transition: all 0.3s ease;
 }
 
 body.dark #navbar {
-    background-color: rgba(45, 45, 68, 0.95);
+    background-color: var(--card-dark);
+    border-bottom-color: var(--border-dark);
+    box-shadow: 0 4px 0px var(--text-dark-secondary);
 }
 
 /* Navigation Buttons */
@@ -252,11 +277,13 @@ body.dark .nav-btn:hover {
 .nav-btn.active {
     background-color: var(--text-light);
     color: var(--card-light);
+    box-shadow: 2px 2px 0px var(--text-light);
 }
 
 body.dark .nav-btn.active {
-    background-color: var(--border-dark);
-    color: var(--card-dark);
+    background-color: var(--saweria-yellow);
+    color: var(--bg-dark);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4), 2px 2px 0px var(--text-dark-secondary);
 }
 
 /* Scroll section targeting */
@@ -268,32 +295,34 @@ body.dark .nav-btn.active {
    THEME TOGGLE BUTTON
    ============================================ */
 .theme-toggle {
-    background-color: var(--bg-dark);
-    color: #ffffff;
+    background-color: var(--text-light);
+    color: var(--bg-light);
     font-size: 1.25rem;
-    box-shadow: 3px 3px 0px var(--bg-dark);
+    box-shadow: 3px 3px 0px var(--text-light);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     width: 2.75rem;
     height: 2.75rem;
-    border-color: var(--border-light);
+    border: 2px solid var(--border-light);
+    transition: all 0.3s ease;
 }
 
 .theme-toggle:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0px var(--bg-dark);
+    box-shadow: 5px 5px 0px var(--text-light);
 }
 
 body.dark .theme-toggle {
-    background-color: var(--mocha-yellow);
+    background-color: var(--saweria-yellow);
     color: var(--bg-dark);
-    box-shadow: 3px 3px 0px var(--mocha-rosewater);
+    border-color: var(--text-dark);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5), 3px 3px 0px var(--text-dark-secondary);
 }
 
 body.dark .theme-toggle:hover {
-    box-shadow: 5px 5px 0px var(--mocha-rosewater);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 5px 5px 0px var(--text-dark-secondary);
 }
 
 /* Icon visibility control */
@@ -317,19 +346,68 @@ body.dark .theme-toggle i.fa-sun {
    TRAKTIR KOPI BUTTON
    ============================================ */
 .btn-saweria {
-    background-color: var(--mocha-yellow) !important;
-    color: var(--bg-dark) !important;
-    border-color: var(--bg-dark) !important;
-    box-shadow: 4px 4px 0px var(--bg-dark) !important;
+    background: linear-gradient(135deg, var(--saweria-yellow) 0%, #ffed4e 50%, var(--saweria-yellow) 100%);
+    color: #1a1a2e !important;
+    border: 2px solid #1a1a2e !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 4px 4px 0px #1a1a2e !important;
     transition: all 0.3s ease;
+    font-weight: 900;
+    letter-spacing: 0.1em;
 }
 
 .btn-saweria:hover {
-    transform: translate(-1px, -1px) !important;
-    box-shadow: 8px 8px 0px var(--bg-dark) !important;
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 6px 6px 0px #1a1a2e !important;
+    background: linear-gradient(135deg, #ffed4e 0%, var(--saweria-yellow) 50%, #ffed4e 100%);
 }
 
 .btn-saweria:active {
     transform: translate(0, 0) !important;
-    box-shadow: 0 0 0 var(--bg-dark) !important;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 2px 2px 0px #1a1a2e !important;
+}
+
+body.dark .btn-saweria {
+    background: linear-gradient(135deg, var(--saweria-yellow) 0%, #ffed4e 50%, var(--saweria-yellow) 100%);
+    color: var(--bg-dark) !important;
+    border-color: var(--text-dark) !important;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 4px 4px 0px var(--text-dark-secondary) !important;
+}
+
+body.dark .btn-saweria:hover {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 6px 6px 0px var(--text-dark-secondary) !important;
+}
+
+/* ============================================
+   SECTION HEADINGS & TEXT
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+    color: var(--text-dark);
+}
+
+p {
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+body.dark p {
+    color: var(--text-dark);
+}
+
+a {
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+body.dark a {
+    color: var(--text-dark);
 }
