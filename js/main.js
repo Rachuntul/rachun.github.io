@@ -134,59 +134,6 @@ const renderGallery = (gridElement, photosArray, statusObj, categoryName) => {
 };
 
 // ============================================
-// PHOTO CARD ZOOM & EXPAND ON CLICK
-// ============================================
-const initPhotoCardZoom = () => {
-    // Handle clicks on photo cards
-    document.addEventListener('click', (e) => {
-        const photoCard = e.target.closest('.photo-card');
-        
-        if (photoCard) {
-            // Toggle expanded state
-            const isExpanded = photoCard.classList.contains('expanded');
-            
-            // Close all other expanded cards
-            document.querySelectorAll('.photo-card.expanded').forEach(card => {
-                if (card !== photoCard) {
-                    card.classList.remove('expanded');
-                }
-            });
-            
-            // Toggle current card
-            photoCard.classList.toggle('expanded');
-            
-            // Update gallery state
-            const gallery = photoCard.closest('.masonry-gallery');
-            if (photoCard.classList.contains('expanded')) {
-                gallery.classList.add('has-expanded');
-            } else {
-                gallery.classList.remove('has-expanded');
-            }
-        } else {
-            // Click outside: close all expanded cards
-            const expandedCard = document.querySelector('.photo-card.expanded');
-            if (expandedCard && !e.target.closest('.photo-card')) {
-                expandedCard.classList.remove('expanded');
-                const gallery = expandedCard.closest('.masonry-gallery');
-                gallery.classList.remove('has-expanded');
-            }
-        }
-    });
-
-    // Allow ESC key to close expanded card
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            const expandedCard = document.querySelector('.photo-card.expanded');
-            if (expandedCard) {
-                expandedCard.classList.remove('expanded');
-                const gallery = expandedCard.closest('.masonry-gallery');
-                gallery.classList.remove('has-expanded');
-            }
-        }
-    });
-};
-
-// ============================================
 // MAIN INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -214,9 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.flyerStatus,
         'Design'
     );
-
-    // Initialize photo card zoom functionality
-    initPhotoCardZoom();
 
     // Debug: Log status (optional, bisa dihapus nanti)
     if (window.galleryStatus) {
