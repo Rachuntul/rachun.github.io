@@ -4,10 +4,10 @@ window.flyerPhotos = ["img/flyer/2026-06-07_001.webp", "img/flyer/2026-06-18_001
 window.galleryStatus = {
   isEmpty: false,
   count: 33,
-  lastUpdate: '2026-06-18 22:23:35'
+  lastUpdate: '2026-06-18 22:25:32'
 };
 window.flyerStatus = {
   isEmpty: false,
   count: 3,
-  lastUpdate: '2026-06-18 22:23:35'
+  lastUpdate: '2026-06-18 22:25:32'
 };
