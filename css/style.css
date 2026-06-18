@@ -176,9 +176,10 @@ body.dark .social-icon:hover {
     background-color: var(--card-light);
     border: 2px solid var(--border-light);
     box-shadow: 6px 6px 0px var(--text-light);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, grid-column 0.3s ease, grid-row 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
 }
 
 /* Grid items dengan aspect ratio berbeda untuk dinamis layout */
@@ -230,6 +231,88 @@ body.dark .photo-card:hover {
 
 .photo-card:hover img {
     filter: grayscale(0%);
+}
+
+/* ============================================
+   EXPANDED PHOTO CARD (ZOOM ON CLICK)
+   ============================================ */
+.photo-card.expanded {
+    grid-column: span 3;
+    grid-row: span 3;
+    z-index: 40;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3), 15px 15px 0px var(--text-light);
+    transform: translate(-8px, -8px);
+}
+
+body.dark .photo-card.expanded {
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.2), 15px 15px 0px var(--text-dark-secondary);
+}
+
+@media (max-width: 1023px) {
+    .photo-card.expanded {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .photo-card.expanded {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+.photo-card.expanded::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.15) 100%);
+    pointer-events: none;
+}
+
+.photo-card.expanded img {
+    filter: brightness(1.05);
+}
+
+/* Close button on expanded card */
+.photo-card.expanded::before {
+    content: '✕';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background-color: var(--mocha-red);
+    color: white;
+    border: 2px solid var(--border-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 50;
+    transition: all 0.2s ease;
+}
+
+body.dark .photo-card.expanded::before {
+    border-color: var(--border-dark);
+}
+
+.photo-card.expanded::before:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(243, 139, 168, 0.5);
+}
+
+/* Dim other cards when one is expanded */
+.masonry-gallery.has-expanded .photo-card:not(.expanded) {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none;
 }
 
 /* KUNCI FIX UNTUK KOTAK KOSONG */
