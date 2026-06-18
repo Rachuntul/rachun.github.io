@@ -76,7 +76,7 @@ const updateActiveButtonOnScroll = () => {
 };
 
 // ============================================
-// GALLERY RENDER
+// GALLERY RENDER dengan Dynamic Aspect Ratio
 // ============================================
 const renderGallery = (gridElement, photosArray, statusObj, categoryName) => {
     // Jika tidak ada foto sama sekali
@@ -93,15 +93,42 @@ const renderGallery = (gridElement, photosArray, statusObj, categoryName) => {
     // Clear grid terlebih dahulu
     gridElement.innerHTML = '';
 
-    // Render semua foto
-    photosArray.forEach(photoPath => {
+    // Render semua foto dengan dynamic aspect ratio detection
+    photosArray.forEach((photoPath, index) => {
         const photoDiv = document.createElement('div');
         photoDiv.className = 'photo-card fade-in';
         
-        photoDiv.innerHTML = `
-            <img src="${photoPath}" alt="${categoryName} Image" loading="lazy">
-        `;
+        const img = document.createElement('img');
+        img.src = photoPath;
+        img.alt = `${categoryName} Image`;
+        img.loading = 'lazy';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.transition = 'filter 0.4s ease';
         
+        // Load image untuk detect aspect ratio
+        img.onload = function() {
+            const aspectRatio = this.naturalWidth / this.naturalHeight;
+            
+            // Assign span berdasarkan aspect ratio
+            // Portrait (tall) -> aspect ratio < 0.7
+            // Landscape (wide) -> aspect ratio > 1.4
+            // Square/normal -> 0.7 - 1.4
+            
+            if (aspectRatio < 0.7) {
+                photoDiv.setAttribute('data-span', 'tall');
+            } else if (aspectRatio > 1.4) {
+                photoDiv.setAttribute('data-span', 'wide');
+            } else {
+                // Buat beberapa item menjadi large untuk visual yang lebih dinamis
+                if (index % 5 === 2) {
+                    photoDiv.setAttribute('data-span', 'large');
+                }
+            }
+        };
+        
+        photoDiv.appendChild(img);
         gridElement.appendChild(photoDiv);
     });
 };
