@@ -103,19 +103,16 @@ const renderGallery = (gridElement, photosArray, statusObj, categoryName) => {
         img.alt = `${categoryName} Image`;
         img.loading = 'lazy';
         img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
+        img.style.height = 'auto';
+        img.style.display = 'block';
+        img.style.objectFit = 'contain';
         img.style.transition = 'filter 0.4s ease';
         
         // Load image untuk detect aspect ratio
         img.onload = function() {
             const aspectRatio = this.naturalWidth / this.naturalHeight;
             
-            // Assign span berdasarkan aspect ratio
-            // Portrait (tall) -> aspect ratio < 0.7
-            // Landscape (wide) -> aspect ratio > 1.4
-            // Square/normal -> 0.7 - 1.4
-            
+            // Assign data-span berdasarkan aspect ratio untuk visual variety
             if (aspectRatio < 0.7) {
                 photoDiv.setAttribute('data-span', 'tall');
             } else if (aspectRatio > 1.4) {
