@@ -1,6 +1,9 @@
 import os
 import json
 from PIL import Image
+from PIL.ExifTags import TAGS
+from datetime import datetime
+from collections import defaultdict
 
 # Konfigurasi
 GALLERY_DIR = 'img/gallery'
@@ -65,6 +68,38 @@ def compress_to_limit(image, filepath, quality_start=80):
     print(f"    ⚠️  Tidak bisa kompresi di bawah 100KB ({file_size / 1024:.1f}KB), disimpan seadanya")
     return False, min_quality, file_size
 
+def get_photo_date(image_path):
+    """Ekstrak tanggal dari EXIF data atau file modification time"""
+    try:
+        img = Image.open(image_path)
+        exif_data = img._getexif()
+        
+        if exif_data:
+            for tag_id, value in exif_data.items():
+                tag_name = TAGS.get(tag_id, tag_id)
+                # DateTime EXIF tag = 306
+                if tag_name == "DateTime":
+                    # Format: "2024:01:15 14:30:45"
+                    date_obj = datetime.strptime(value, "%Y:%m:%d %H:%M:%S")
+                    return date_obj.strftime("%Y-%m-%d")
+    except Exception as e:
+        pass
+    
+    # Jika EXIF tidak ada, gunakan file modification time
+    mtime = os.path.getmtime(image_path)
+    date_obj = datetime.fromtimestamp(mtime)
+    return date_obj.strftime("%Y-%m-%d")
+
+def generate_new_filename(directory, date_str):
+    """Generate nama file unik berdasarkan tanggal dengan counter"""
+    counter = 1
+    while True:
+        new_filename = f"{date_str}_{counter:03d}.webp"
+        new_filepath = os.path.join(directory, new_filename)
+        if not os.path.exists(new_filepath):
+            return new_filename
+        counter += 1
+
 def process_directory(directory, category_name):
     """Proses foto dari direktori dan return list foto WebP + status"""
     os.makedirs(directory, exist_ok=True)
@@ -72,7 +107,8 @@ def process_directory(directory, category_name):
     added_count = 0
     deleted_count = 0
     
-    for filename in os.listdir(directory):
+    # Sort filenames untuk urutan konsisten dan rapi
+    for filename in sorted(os.listdir(directory)):
         filepath = os.path.join(directory, filename)
         
         # Lewati folder atau file tersembunyi
@@ -89,8 +125,9 @@ def process_directory(directory, category_name):
                     new_height = int(img.height * ratio)
                     img = img.resize((MAX_WIDTH, new_height), Image.Resampling.LANCZOS)
                 
-                # Simpan sebagai WebP
-                new_filename = os.path.splitext(filename)[0] + '.webp'
+                # Ekstrak tanggal dan buat nama file baru
+                photo_date = get_photo_date(filepath)
+                new_filename = generate_new_filename(directory, photo_date)
                 new_filepath = os.path.join(directory, new_filename)
                 
                 # Kompresi hingga di bawah 100KB
@@ -111,6 +148,23 @@ def process_directory(directory, category_name):
         # Jika file sudah berupa WebP, check ukuran dan re-kompresi jika perlu
         elif filename.lower().endswith('.webp'):
             filepath = os.path.join(directory, filename)
+            
+            # Check apakah sudah dalam format tanggal (YYYY-MM-DD_NNN.webp)
+            is_date_format = len(filename) >= 14 and filename[4:5] == '-' and filename[7:8] == '-'
+            
+            # Jika belum format tanggal, rename dulu
+            if not is_date_format:
+                try:
+                    photo_date = get_photo_date(filepath)
+                    new_filename = generate_new_filename(directory, photo_date)
+                    new_filepath = os.path.join(directory, new_filename)
+                    os.rename(filepath, new_filepath)
+                    print(f"🔄 Rename {category_name}: {filename} -> {new_filename}")
+                    filepath = new_filepath
+                    filename = new_filename
+                except Exception as e:
+                    print(f"❌ Gagal rename {category_name}/{filename}: {e}")
+            
             file_size = os.path.getsize(filepath)
             
             # Jika file WebP melebihi 100KB, re-kompresi
@@ -136,6 +190,8 @@ def process_directory(directory, category_name):
             
             photos.append(f"{directory}/{filename}")
     
+    # Sort photos untuk urutan yang konsisten
+    photos.sort()
     return photos, len(photos) == 0, added_count
 
 def optimize_and_update():

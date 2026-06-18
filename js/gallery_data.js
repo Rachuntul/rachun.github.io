@@ -1,13 +1,13 @@
 // Auto-generated gallery data
-window.galleryPhotos = ["img/gallery/DSCF7080.webp", "img/gallery/DSCF5026.webp", "img/gallery/DSCF2549.webp", "img/gallery/DSCF5974.webp", "img/gallery/DSCF2577.webp", "img/gallery/DSCF2559.webp", "img/gallery/DSCF2555.webp", "img/gallery/DSCF5842.webp", "img/gallery/DSCF7086.webp", "img/gallery/DSCF5034.webp", "img/gallery/DSCF5999.webp", "img/gallery/DSCF7130.webp", "img/gallery/DSCF5862.webp", "img/gallery/DSCF5053.webp", "img/gallery/DSCF7090.webp", "img/gallery/DSCF2667.webp", "img/gallery/DSCF5362.webp", "img/gallery/DSCF2720.webp", "img/gallery/DSCF5351.webp", "img/gallery/DSCF2562.webp", "img/gallery/DSCF5041.webp", "img/gallery/DSCF5926.webp", "img/gallery/DSCF7026.webp", "img/gallery/DSCF5924.webp", "img/gallery/DSCF5388.webp", "img/gallery/DSCF2662.webp", "img/gallery/DSCF5375.webp", "img/gallery/DSCF5760.webp"];
-window.flyerPhotos = ["img/flyer/A4.webp", "img/flyer/Damn1.webp", "img/flyer/Frame 427323542.webp"];
+window.galleryPhotos = ["img/gallery/2026-05-21_001.webp", "img/gallery/2026-05-21_002.webp", "img/gallery/2026-05-21_003.webp", "img/gallery/2026-05-21_004.webp", "img/gallery/2026-05-21_005.webp", "img/gallery/2026-05-21_006.webp", "img/gallery/2026-05-21_007.webp", "img/gallery/2026-05-21_008.webp", "img/gallery/2026-06-07_001.webp", "img/gallery/2026-06-07_002.webp", "img/gallery/2026-06-07_003.webp", "img/gallery/2026-06-07_004.webp", "img/gallery/2026-06-07_005.webp", "img/gallery/2026-06-07_006.webp", "img/gallery/2026-06-07_007.webp", "img/gallery/2026-06-07_008.webp", "img/gallery/2026-06-07_009.webp", "img/gallery/2026-06-07_010.webp", "img/gallery/2026-06-07_011.webp", "img/gallery/2026-06-07_012.webp", "img/gallery/2026-06-07_013.webp", "img/gallery/2026-06-07_014.webp", "img/gallery/2026-06-07_015.webp", "img/gallery/2026-06-10_001.webp", "img/gallery/2026-06-10_002.webp", "img/gallery/2026-06-10_003.webp", "img/gallery/2026-06-10_004.webp", "img/gallery/2026-06-10_005.webp"];
+window.flyerPhotos = ["img/flyer/2026-06-07_001.webp", "img/flyer/2026-06-18_001.webp", "img/flyer/2026-06-18_002.webp"];
 window.galleryStatus = {
   isEmpty: false,
   count: 28,
-  lastUpdate: '2026-06-18 21:41:43'
+  lastUpdate: '2026-06-18 21:52:54'
 };
 window.flyerStatus = {
   isEmpty: false,
   count: 3,
-  lastUpdate: '2026-06-18 21:41:43'
+  lastUpdate: '2026-06-18 21:52:54'
 };
