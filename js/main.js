@@ -106,6 +106,7 @@ const renderGallery = (gridElement, photosArray, statusObj, categoryName) => {
         img.style.height = 'auto';
         img.style.display = 'block';
         img.style.objectFit = 'contain';
+        img.style.imageOrientation = 'from-image';
         img.style.transition = 'filter 0.4s ease';
         
         // Load image untuk detect aspect ratio
