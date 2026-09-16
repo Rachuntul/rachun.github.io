@@ -1,219 +1,924 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
 
-/* Catppuccin Mocha Theme */
+/* ==========================================================================
+   FLAT 2-TONE + 3D SHAPE & SHADOW DESIGN SYSTEM
+   Theme: Flat 2-Tone (Contrast Duo) with Solid 3D Extrusion
+   Feature: Solar Shadow Transit (Sun moving from East to West)
+   ========================================================================== */
+
 :root {
-    /* Light Mode - Mocha Inverted */
-    --bg-light: #f5e6d3;
-    --bg-dark: #1e1e2e;
-    --card-light: #fffbf7;
-    --card-dark: #313244;
-    --text-light: #1e1e2e;
-    --text-light-secondary: #6c7086;
-    --text-dark: #cdd6f4;
-    --text-dark-secondary: #bac2de;
-    --dot-light: #bac2de;
-    --dot-dark: #45475a;
-    --border-light: #1e1e2e;
-    --border-dark: #f5e0dc;
-    
-    /* Catppuccin Mocha Accent Colors */
-    --mocha-rosewater: #f5e0dc;
-    --mocha-flamingo: #f2cdcd;
-    --mocha-pink: #f5c2e7;
-    --mocha-mauve: #cba6f7;
-    --mocha-red: #f38ba8;
-    --mocha-maroon: #eba0ac;
-    --mocha-peach: #fab387;
-    --mocha-yellow: #f9e2af;
-    --mocha-green: #a6e3a1;
-    --mocha-teal: #94e2d5;
-    --mocha-sky: #89dceb;
-    --mocha-sapphire: #74c7ec;
-    --mocha-blue: #89b4fa;
-    --mocha-lavender: #b4befe;
-    
-    /* Saweria Yellow - Bright and Vibrant */
-    --saweria-yellow: #ffd700;
+    /* ----------------------------------------------------------------------
+       LIGHT MODE: FLAT 2-TONE PALETTE
+       Tone 1: Warm Paper Alabaster (Canvas / Surface)
+       Tone 2: Deep Obsidian Ink (Structure / Contrast / Extrusions)
+       Accent: Solar Amber (Sunlight / Energy)
+       ---------------------------------------------------------------------- */
+    --tone-canvas: #F6F4EE;
+    --tone-surface: #FFFFFF;
+    --tone-surface-alt: #EFECE3;
+    --tone-contrast: #12131C;
+    --tone-muted: #5C6274;
+    --tone-border: #12131C;
+
+    /* Solar Amber Key Accent */
+    --solar-amber: #FFB703;
+    --solar-amber-hover: #FB8500;
+    --solar-amber-contrast: #12131C;
+    --solar-glow: rgba(255, 183, 3, 0.45);
+
+    /* Solid 3D Stepped Shadow & Ambient Drop */
+    --shadow-edge: #12131C;
+    --shadow-ambient: rgba(18, 19, 28, 0.16);
+    --shadow-edge-sub: #373A4D;
+
+    /* Background Dot Matrix */
+    --dot-grid: #D7D2C5;
+
+    /* Resting Card 3D Depth */
+    --card-3d-x: 6px;
+    --card-3d-y: 6px;
+
+    /* Navbar 3D Depth */
+    --nav-border: #12131C;
+    --nav-bg: rgba(255, 255, 255, 0.94);
+}
+
+body.dark {
+    /* ----------------------------------------------------------------------
+       DARK MODE: FLAT 2-TONE PALETTE
+       Tone 1: Deep Midnight Obsidian (Canvas / Surface)
+       Tone 2: Cream Alabaster (Structure / Text / Inverted Extrusions)
+       Accent: Luminous Electric Sun (Moon / Star / Daylight Flare)
+       ---------------------------------------------------------------------- */
+    --tone-canvas: #0E1017;
+    --tone-surface: #161824;
+    --tone-surface-alt: #1E2130;
+    --tone-contrast: #F4F0E8;
+    --tone-muted: #949CB0;
+    --tone-border: #F4F0E8;
+
+    /* Solar Amber Key Accent */
+    --solar-amber: #FBBF24;
+    --solar-amber-hover: #F59E0B;
+    --solar-amber-contrast: #0E1017;
+    --solar-glow: rgba(251, 191, 36, 0.4);
+
+    /* Solid 3D Stepped Shadow & Ambient Drop */
+    --shadow-edge: #F4F0E8;
+    --shadow-ambient: rgba(0, 0, 0, 0.7);
+    --shadow-edge-sub: #D5CFBF;
+
+    /* Background Dot Matrix */
+    --dot-grid: #25283B;
+
+    /* Navbar */
+    --nav-border: #F4F0E8;
+    --nav-bg: rgba(22, 24, 36, 0.94);
+}
+
+/* Base resets & typography */
+* {
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Space Grotesk', sans-serif;
-    background-color: var(--bg-light);
+    background-color: var(--tone-canvas);
+    color: var(--tone-contrast);
     margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
 }
 
-body.dark {
-    background-color: var(--bg-dark);
-    color: var(--text-dark);
-}
-
-/* Container sizing untuk desktop lebih lebar */
-.max-w-5xl {
-    max-width: 100%;
-}
-
-@media (min-width: 1024px) {
-    .max-w-5xl {
-        max-width: 90%;
-    }
-}
-
-@media (min-width: 1280px) {
-    .max-w-5xl {
-        max-width: 85%;
-    }
-}
-
-@media (min-width: 1536px) {
-    .max-w-5xl {
-        max-width: 1400px;
-    }
-}
-
-/* Background dengan pola dot statis saat discroll */
+/* Background with 2-Tone Dot Grid */
 .fixed-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: radial-gradient(var(--dot-light) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background-image: radial-gradient(var(--dot-grid) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
     z-index: 0;
-    transition: background-image 0.3s ease;
+    pointer-events: none;
+    transition: background-image 0.4s ease;
 }
 
-body.dark .fixed-bg {
-    background-image: radial-gradient(var(--dot-dark) 1px, transparent 1px);
+/* Container sizing */
+.max-w-5xl {
+    max-width: 100%;
 }
-
-/* Efek 2D Papercut yang tegas dan tajam */
-.papercut-layer {
-    background-color: var(--card-light);
-    border: 2px solid var(--border-light);
-    box-shadow: 8px 8px 0px var(--text-light);
-    border-radius: 0px; 
+@media (min-width: 1024px) {
+    .max-w-5xl {
+        max-width: 90%;
+    }
 }
-
-body.dark .papercut-layer {
-    background-color: var(--card-dark);
-    border: 2px solid var(--border-dark);
-    box-shadow: 8px 8px 0px var(--text-dark-secondary);
+@media (min-width: 1280px) {
+    .max-w-5xl {
+        max-width: 85%;
+    }
 }
-
-/* Kotak Foto Profil */
-.profile-frame {
-    width: 220px;
-    flex-shrink: 0;
-    border: 2px solid var(--border-light);
-    box-shadow: 6px 6px 0px var(--text-light);
-    background-color: #f3f4f6;
-    overflow: hidden;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-body.dark .profile-frame {
-    border: 2px solid var(--border-dark);
-    box-shadow: 6px 6px 0px var(--text-dark-secondary);
-    background-color: var(--card-dark);
-}
-
-@media (max-width: 768px) {
-    .profile-frame {
-        height: 220px;
+@media (min-width: 1536px) {
+    .max-w-5xl {
+        max-width: 1360px;
     }
 }
 
-.profile-frame:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 10px 10px 0px var(--text-light);
+/* ==========================================================================
+   SOLID 3D STEPPED EXTRUSIONS (True Flat 3D Physical Slabs)
+   ========================================================================== */
+
+/* General 3D Card Slab */
+.card-3d {
+    background-color: var(--tone-surface);
+    border: 2.5px solid var(--tone-border);
+    box-shadow: 
+        1px 1px 0 var(--shadow-edge),
+        2px 2px 0 var(--shadow-edge),
+        3px 3px 0 var(--shadow-edge),
+        4px 4px 0 var(--shadow-edge),
+        5px 5px 0 var(--shadow-edge),
+        6px 6px 0 var(--shadow-edge),
+        8px 8px 16px var(--shadow-ambient);
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background-color 0.4s ease,
+                border-color 0.4s ease;
 }
 
-body.dark .profile-frame:hover {
-    box-shadow: 10px 10px 0px var(--text-dark-secondary);
+/* Card Hover Elevation */
+.card-3d:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 
+        1px 1px 0 var(--shadow-edge),
+        2px 2px 0 var(--shadow-edge),
+        3px 3px 0 var(--shadow-edge),
+        4px 4px 0 var(--shadow-edge),
+        5px 5px 0 var(--shadow-edge),
+        6px 6px 0 var(--shadow-edge),
+        7px 7px 0 var(--shadow-edge),
+        8px 8px 0 var(--shadow-edge),
+        9px 9px 0 var(--shadow-edge),
+        12px 12px 22px var(--shadow-ambient);
 }
 
-.name-card {
-    background-color: var(--card-light);
-    border: 2px solid var(--border-light);
-    box-shadow: 6px 6px 0px var(--text-light);
-    border-radius: 0px;
-    transition: all 0.3s ease;
+/* General 3D Tactile Button */
+.btn-3d {
+    border: 2px solid var(--tone-border);
+    background-color: var(--tone-surface);
+    color: var(--tone-contrast);
+    box-shadow: 
+        1px 1px 0 var(--shadow-edge),
+        2px 2px 0 var(--shadow-edge),
+        3px 3px 0 var(--shadow-edge),
+        4px 4px 0 var(--shadow-edge),
+        5px 5px 8px var(--shadow-ambient);
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background-color 0.3s ease,
+                border-color 0.3s ease,
+                color 0.3s ease;
+    cursor: pointer;
+    user-select: none;
 }
 
-body.dark .name-card {
-    background-color: var(--card-dark);
-    border: 2px solid var(--border-dark);
-    box-shadow: 6px 6px 0px var(--text-dark-secondary);
-}
-
-.name-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 10px 10px 0px var(--text-light);
-}
-
-body.dark .name-card:hover {
-    box-shadow: 10px 10px 0px var(--text-dark-secondary);
-}
-
-.social-icon {
-    font-size: 1.5rem;
-    color: var(--text-light);
-    transition: transform 0.2s ease, text-shadow 0.2s ease, color 0.3s ease;
-}
-
-body.dark .social-icon {
-    color: var(--text-dark);
-}
-
-.social-icon:hover {
+/* Button Hover State */
+.btn-3d:hover {
     transform: translate(-2px, -2px);
-    text-shadow: 2px 2px 0px var(--text-light-secondary);
+    box-shadow: 
+        1px 1px 0 var(--shadow-edge),
+        2px 2px 0 var(--shadow-edge),
+        3px 3px 0 var(--shadow-edge),
+        4px 4px 0 var(--shadow-edge),
+        5px 5px 0 var(--shadow-edge),
+        6px 6px 0 var(--shadow-edge),
+        7px 7px 12px var(--shadow-ambient);
 }
 
-body.dark .social-icon:hover {
-    text-shadow: 2px 2px 0px var(--text-dark-secondary);
-    color: var(--saweria-yellow);
+/* Button Pressed State: Tactile sinking into canvas */
+.btn-3d:active {
+    transform: translate(3px, 3px) !important;
+    box-shadow: 
+        1px 1px 0 var(--shadow-edge),
+        1px 1px 3px var(--shadow-ambient) !important;
 }
 
-/* Masonry Layout Otomatis untuk Galeri - CSS Columns */
+/* ==========================================================================
+   SOLAR TRANSIT OVERLAY & CELESTIAL ORB (Matahari Timur ke Barat)
+   ========================================================================== */
+
+.solar-transit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Active during transition */
+body.sun-transit-to-light .solar-transit-overlay,
+body.sun-transit-to-dark .solar-transit-overlay {
+    opacity: 1;
+}
+
+/* Celestial Orb (The Sun or Moon traversing the sky) */
+.solar-celestial-orb {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    transform: translate(110vw, 40px);
+    z-index: 101;
+    pointer-events: none;
+}
+
+.solar-core {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFF7D1 0%, var(--solar-amber) 70%, #F77F00 100%);
+    box-shadow: 0 0 35px var(--solar-amber), 0 0 70px rgba(255, 183, 3, 0.6);
+}
+
+.solar-corona {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px dashed var(--solar-amber);
+    animation: coronaSpin 8s linear infinite;
+    opacity: 0.7;
+}
+
+.solar-rays {
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 183, 3, 0.25) 0%, transparent 70%);
+}
+
+@keyframes coronaSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Ambient light sweep effect */
+.solar-ambient-sweep {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 183, 3, 0.12) 50%, transparent 100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   KEYFRAME ANIMATIONS: SUN TRANSIT FROM EAST (RIGHT) TO WEST (LEFT)
+   As sun moves East (Right) -> Zenith (Top) -> West (Left):
+   Light hits from East -> Shadow points West (Left, -X)
+   Light hits from Zenith -> Shadow points Down (0X, +Y)
+   Light hits from West -> Shadow points East (Right, +X)
+   -------------------------------------------------------------------------- */
+
+/* Celestial Sun Arc: East to West Flight */
+@keyframes celestialSunPassEastToWest {
+    0% {
+        /* East horizon (Right side) */
+        transform: translate(105vw, 90px) scale(0.6);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+        transform: translate(80vw, 30px) scale(1.05);
+    }
+    50% {
+        /* Solar Noon (Overhead zenith) */
+        transform: translate(50vw, -10px) scale(1.25);
+        opacity: 1;
+        filter: drop-shadow(0 0 30px var(--solar-amber));
+    }
+    85% {
+        opacity: 1;
+        transform: translate(15vw, 35px) scale(1.0);
+    }
+    100% {
+        /* West horizon (Left side) */
+        transform: translate(-15vw, 100px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Celestial Sunset Arc (To Dark Mode) */
+@keyframes celestialSunsetPass {
+    0% {
+        transform: translate(25vw, 30px) scale(1.1);
+        opacity: 0.9;
+    }
+    40% {
+        /* Sun sinking West */
+        transform: translate(-10vw, 120px) scale(0.8);
+        opacity: 0.3;
+    }
+    60% {
+        /* Moon rising East */
+        transform: translate(105vw, 60px) scale(0.6);
+        opacity: 0.2;
+    }
+    85% {
+        transform: translate(75vw, 25px) scale(1.05);
+        opacity: 1;
+        filter: drop-shadow(0 0 25px #E0E7FF);
+    }
+    100% {
+        transform: translate(50vw, 15px) scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes ambientSolarWave {
+    0% { transform: translateX(100%); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateX(-100%); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   DYNAMIC SHADOW ANIMATION FOR 3D CARDS (Matahari Timur -> Barat)
+   -------------------------------------------------------------------------- */
+
+@keyframes sunTransitCardToLight {
+    0% {
+        /* Sun in East (Right) -> Shadow cast to West (Left & Down) */
+        box-shadow: 
+            -1px 1px 0 var(--shadow-edge),
+            -3px 2px 0 var(--shadow-edge),
+            -6px 3px 0 var(--shadow-edge),
+            -10px 5px 0 var(--shadow-edge),
+            -15px 7px 18px var(--shadow-ambient);
+        transform: translate(2px, -1px);
+    }
+    25% {
+        /* Mid-morning sun ascending */
+        box-shadow: 
+            -1px 2px 0 var(--shadow-edge),
+            -3px 4px 0 var(--shadow-edge),
+            -6px 7px 0 var(--shadow-edge),
+            -8px 10px 0 var(--shadow-edge),
+            -12px 13px 20px var(--shadow-ambient);
+        transform: translate(1px, -1px);
+    }
+    50% {
+        /* Solar Noon / Zenith -> Sun directly overhead, shadow cast straight down */
+        box-shadow: 
+            0px 2px 0 var(--shadow-edge),
+            0px 4px 0 var(--shadow-edge),
+            0px 7px 0 var(--shadow-edge),
+            0px 10px 0 var(--shadow-edge),
+            0px 15px 24px var(--shadow-ambient);
+        transform: translate(0px, 0px);
+    }
+    75% {
+        /* Mid-afternoon -> Sun moving West, shadow tilts East (Right) */
+        box-shadow: 
+            1px 2px 0 var(--shadow-edge),
+            3px 4px 0 var(--shadow-edge),
+            6px 7px 0 var(--shadow-edge),
+            8px 10px 0 var(--shadow-edge),
+            12px 13px 20px var(--shadow-ambient);
+        transform: translate(-1px, -1px);
+    }
+    90% {
+        /* Late afternoon / Sun in West -> Shadow stretched East (Right) */
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            3px 2px 0 var(--shadow-edge),
+            6px 3px 0 var(--shadow-edge),
+            10px 5px 0 var(--shadow-edge),
+            15px 7px 18px var(--shadow-ambient);
+        transform: translate(-2px, -1px);
+    }
+    100% {
+        /* Smooth docking into resting 3D isometric posture */
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            2px 2px 0 var(--shadow-edge),
+            3px 3px 0 var(--shadow-edge),
+            4px 4px 0 var(--shadow-edge),
+            5px 5px 0 var(--shadow-edge),
+            6px 6px 0 var(--shadow-edge),
+            8px 8px 16px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes sunTransitCardToDark {
+    0% {
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            3px 3px 0 var(--shadow-edge),
+            6px 6px 0 var(--shadow-edge),
+            9px 9px 0 var(--shadow-edge),
+            12px 12px 20px var(--shadow-ambient);
+        transform: translate(-1px, -1px);
+    }
+    28% {
+        /* Sunset low in West -> Shadow stretches long to East */
+        box-shadow: 
+            2px 1px 0 var(--shadow-edge),
+            5px 2px 0 var(--shadow-edge),
+            9px 4px 0 var(--shadow-edge),
+            13px 6px 0 var(--shadow-edge),
+            18px 9px 24px var(--shadow-ambient);
+        transform: translate(-2px, -1px);
+    }
+    55% {
+        /* Twilight zenith arc */
+        box-shadow: 
+            0px 2px 0 var(--shadow-edge),
+            0px 5px 0 var(--shadow-edge),
+            0px 8px 0 var(--shadow-edge),
+            0px 11px 0 var(--shadow-edge),
+            0px 16px 26px var(--shadow-ambient);
+        transform: translate(0px, 0px);
+    }
+    80% {
+        /* Night moon sweeps from East */
+        box-shadow: 
+            -1px 1px 0 var(--shadow-edge),
+            -3px 2px 0 var(--shadow-edge),
+            -6px 4px 0 var(--shadow-edge),
+            -9px 6px 0 var(--shadow-edge),
+            -13px 8px 22px var(--shadow-ambient);
+        transform: translate(1px, -1px);
+    }
+    100% {
+        /* Settle into resting Dark 3D shadow posture */
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            2px 2px 0 var(--shadow-edge),
+            3px 3px 0 var(--shadow-edge),
+            4px 4px 0 var(--shadow-edge),
+            5px 5px 0 var(--shadow-edge),
+            6px 6px 0 var(--shadow-edge),
+            8px 8px 16px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   DYNAMIC SHADOW ANIMATION FOR 3D BUTTONS
+   -------------------------------------------------------------------------- */
+
+@keyframes sunTransitBtnToLight {
+    0% {
+        box-shadow: 
+            -1px 1px 0 var(--shadow-edge),
+            -3px 2px 0 var(--shadow-edge),
+            -6px 4px 0 var(--shadow-edge),
+            -8px 6px 10px var(--shadow-ambient);
+        transform: translate(1px, -1px);
+    }
+    50% {
+        box-shadow: 
+            0px 1px 0 var(--shadow-edge),
+            0px 3px 0 var(--shadow-edge),
+            0px 6px 0 var(--shadow-edge),
+            0px 9px 12px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+    85% {
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            3px 2px 0 var(--shadow-edge),
+            6px 4px 0 var(--shadow-edge),
+            8px 6px 10px var(--shadow-ambient);
+        transform: translate(-1px, -1px);
+    }
+    100% {
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            2px 2px 0 var(--shadow-edge),
+            3px 3px 0 var(--shadow-edge),
+            4px 4px 0 var(--shadow-edge),
+            5px 5px 8px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes sunTransitBtnToDark {
+    0% {
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            3px 2px 0 var(--shadow-edge),
+            5px 4px 0 var(--shadow-edge),
+            7px 6px 10px var(--shadow-ambient);
+        transform: translate(-1px, -1px);
+    }
+    50% {
+        box-shadow: 
+            0px 1px 0 var(--shadow-edge),
+            0px 3px 0 var(--shadow-edge),
+            0px 6px 0 var(--shadow-edge),
+            0px 9px 12px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+    80% {
+        box-shadow: 
+            -1px 1px 0 var(--shadow-edge),
+            -3px 2px 0 var(--shadow-edge),
+            -5px 4px 0 var(--shadow-edge),
+            -7px 6px 10px var(--shadow-ambient);
+        transform: translate(1px, -1px);
+    }
+    100% {
+        box-shadow: 
+            1px 1px 0 var(--shadow-edge),
+            2px 2px 0 var(--shadow-edge),
+            3px 3px 0 var(--shadow-edge),
+            4px 4px 0 var(--shadow-edge),
+            5px 5px 8px var(--shadow-ambient);
+        transform: translate(0, 0);
+    }
+}
+
+/* Trigger animation execution on transit */
+body.sun-transit-to-light #solar-celestial-orb {
+    animation: celestialSunPassEastToWest 1.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+body.sun-transit-to-light .solar-ambient-sweep {
+    animation: ambientSolarWave 1.35s ease-in-out forwards;
+}
+
+body.sun-transit-to-dark #solar-celestial-orb {
+    animation: celestialSunsetPass 1.35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+body.sun-transit-to-dark .solar-ambient-sweep {
+    animation: ambientSolarWave 1.35s ease-in-out forwards;
+}
+
+body.sun-transit-to-light .card-3d,
+body.sun-transit-to-light .profile-frame,
+body.sun-transit-to-light .name-card,
+body.sun-transit-to-light .photo-card {
+    animation: sunTransitCardToLight 1.35s cubic-bezier(0.3, 0.8, 0.3, 1) forwards;
+}
+
+body.sun-transit-to-dark .card-3d,
+body.sun-transit-to-dark .profile-frame,
+body.sun-transit-to-dark .name-card,
+body.sun-transit-to-dark .photo-card {
+    animation: sunTransitCardToDark 1.35s cubic-bezier(0.3, 0.8, 0.3, 1) forwards;
+}
+
+body.sun-transit-to-light .btn-3d,
+body.sun-transit-to-light .nav-btn,
+body.sun-transit-to-light .theme-toggle,
+body.sun-transit-to-light .btn-saweria,
+body.sun-transit-to-light .social-cube {
+    animation: sunTransitBtnToLight 1.35s cubic-bezier(0.3, 0.8, 0.3, 1) forwards;
+}
+
+body.sun-transit-to-dark .btn-3d,
+body.sun-transit-to-dark .nav-btn,
+body.sun-transit-to-dark .theme-toggle,
+body.sun-transit-to-dark .btn-saweria,
+body.sun-transit-to-dark .social-cube {
+    animation: sunTransitBtnToDark 1.35s cubic-bezier(0.3, 0.8, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   NAVBAR & 3D CONTROLS
+   ========================================================================== */
+
+#navbar {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 2.5px solid var(--nav-border);
+    box-shadow: 
+        0 2px 0 var(--shadow-edge),
+        0 4px 0 var(--shadow-edge),
+        0 6px 12px var(--shadow-ambient);
+    transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Theme Toggle Button: Sun in Light Mode, Moon in Dark Mode */
+.theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    border-radius: 0px;
+    background-color: var(--tone-surface);
+    color: var(--tone-contrast);
+}
+
+/* Light Theme: Shows Sun icon */
+.theme-toggle i.fa-sun {
+    display: inline-block;
+    color: var(--solar-amber);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle i.fa-moon {
+    display: none;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark Theme: Shows Moon icon */
+body.dark .theme-toggle i.fa-sun {
+    display: none;
+}
+
+body.dark .theme-toggle i.fa-moon {
+    display: inline-block;
+    color: var(--solar-amber);
+}
+
+/* Rotating Sun/Moon spin during theme change */
+body.sun-transit-to-light .theme-toggle i,
+body.sun-transit-to-dark .theme-toggle i {
+    animation: iconCompassSpin 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes iconCompassSpin {
+    0% { transform: rotate(0deg) scale(0.6); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    padding: 0.5rem 0.9rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    border-radius: 0px;
+}
+
+.nav-btn.active {
+    background-color: var(--tone-contrast);
+    color: var(--tone-surface);
+    box-shadow: 
+        1px 1px 0 var(--solar-amber),
+        2px 2px 0 var(--solar-amber),
+        3px 3px 0 var(--solar-amber);
+}
+
+body.dark .nav-btn.active {
+    background-color: var(--solar-amber);
+    color: var(--tone-canvas);
+    border-color: var(--solar-amber);
+    box-shadow: 
+        1px 1px 0 var(--tone-contrast),
+        2px 2px 0 var(--tone-contrast),
+        3px 3px 0 var(--tone-contrast);
+}
+
+/* ==========================================================================
+   HERO SECTION & 3D COMPONENTS
+   ========================================================================== */
+
+/* 3D Profile Frame */
+.profile-frame {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--tone-surface-alt);
+}
+
+.profile-corner-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--tone-contrast);
+    color: var(--tone-surface);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.12em;
+    z-index: 2;
+    border-bottom: 2px solid var(--tone-border);
+    border-right: 2px solid var(--tone-border);
+}
+
+.profile-depth-accent {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, transparent 50%, var(--solar-amber) 50%);
+    z-index: 2;
+}
+
+/* Name Card Components */
+.name-card {
+    min-height: 220px;
+}
+
+.tag-pill-3d {
+    background-color: var(--tone-contrast);
+    color: var(--tone-surface);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 0.25rem 0.65rem;
+    border: 1.5px solid var(--tone-border);
+}
+
+.status-indicator-3d {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--tone-muted);
+}
+
+.status-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 6px #10B981;
+    display: inline-block;
+}
+
+.role-badge-3d {
+    background-color: var(--tone-surface-alt);
+    border: 2px solid var(--tone-border);
+    color: var(--tone-contrast);
+    box-shadow: 2px 2px 0 var(--shadow-edge);
+}
+
+/* Tactile 3D Social Cubes */
+.social-cube {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    border-radius: 0px;
+    text-decoration: none;
+}
+
+.social-cube:hover {
+    color: var(--solar-amber);
+}
+
+/* 3D Traktir Kopi Button (Saweria) */
+.btn-saweria {
+    background: linear-gradient(135deg, var(--solar-amber) 0%, #FFD166 100%);
+    color: #12131C !important;
+    border: 2px solid #12131C !important;
+    box-shadow: 
+        1px 1px 0 #12131C,
+        2px 2px 0 #12131C,
+        3px 3px 0 #12131C,
+        4px 4px 0 #12131C,
+        6px 6px 12px var(--solar-glow);
+    text-decoration: none;
+}
+
+body.dark .btn-saweria {
+    background: linear-gradient(135deg, var(--solar-amber) 0%, #FFE066 100%);
+    color: #0E1017 !important;
+    border-color: var(--tone-contrast) !important;
+    box-shadow: 
+        1px 1px 0 var(--tone-contrast),
+        2px 2px 0 var(--tone-contrast),
+        3px 3px 0 var(--tone-contrast),
+        4px 4px 0 var(--tone-contrast),
+        6px 6px 16px var(--solar-glow);
+}
+
+/* Decorative 3D Cube Silhouette in Background */
+.decorative-3d-cube {
+    position: absolute;
+    right: -25px;
+    bottom: -25px;
+    width: 140px;
+    height: 140px;
+    opacity: 0.05;
+    background-image: 
+        linear-gradient(30deg, var(--tone-contrast) 12%, transparent 12.5%, transparent 87%, var(--tone-contrast) 87.5%, var(--tone-contrast)),
+        linear-gradient(150deg, var(--tone-contrast) 12%, transparent 12.5%, transparent 87%, var(--tone-contrast) 87.5%, var(--tone-contrast)),
+        linear-gradient(30deg, var(--tone-contrast) 12%, transparent 12.5%, transparent 87%, var(--tone-contrast) 87.5%, var(--tone-contrast)),
+        linear-gradient(150deg, var(--tone-contrast) 12%, transparent 12.5%, transparent 87%, var(--tone-contrast) 87.5%, var(--tone-contrast));
+    background-size: 40px 70px;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+body.dark .decorative-3d-cube {
+    opacity: 0.09;
+}
+
+/* ==========================================================================
+   SECTION HEADERS & BADGES
+   ========================================================================== */
+
+.scroll-section {
+    scroll-margin-top: 120px;
+}
+
+.section-header-3d {
+    border-bottom: 2px dashed var(--tone-muted);
+    padding-bottom: 1.25rem;
+}
+
+.section-icon-cube {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--tone-contrast);
+    color: var(--tone-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    border: 2px solid var(--tone-border);
+    box-shadow: 
+        1px 1px 0 var(--solar-amber),
+        2px 2px 0 var(--solar-amber),
+        3px 3px 0 var(--solar-amber);
+}
+
+.section-label-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--solar-amber);
+    display: block;
+}
+
+.badge-count-3d {
+    background-color: var(--tone-surface);
+    color: var(--tone-contrast);
+    border: 2px solid var(--tone-border);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    box-shadow: 3px 3px 0 var(--shadow-edge);
+}
+
+/* ==========================================================================
+   MASONRY GALLERY & PHOTO CARDS
+   ========================================================================== */
+
 .masonry-gallery {
     display: block;
-    column-count: 2;
+    column-count: 1;
     column-gap: 2rem;
 }
 
-/* Responsif: jumlah kolom berbeda di setiap ukuran */
-@media (min-width: 640px) { .masonry-gallery { column-count: 2; column-gap: 2rem; } }
-@media (min-width: 768px) { .masonry-gallery { column-count: 2; column-gap: 2rem; } }
-@media (min-width: 1024px) { .masonry-gallery { column-count: 3; column-gap: 2rem; } }
-@media (min-width: 1280px) { .masonry-gallery { column-count: 3; column-gap: 2.5rem; } }
+@media (min-width: 640px) {
+    .masonry-gallery {
+        column-count: 2;
+        column-gap: 2rem;
+    }
+}
+@media (min-width: 1024px) {
+    .masonry-gallery {
+        column-count: 3;
+        column-gap: 2rem;
+    }
+}
+@media (min-width: 1440px) {
+    .masonry-gallery {
+        column-count: 3;
+        column-gap: 2.5rem;
+    }
+}
 
-/* Desain Kartu Foto */
+/* 3D Photo Card */
 .photo-card {
     display: block;
-    background-color: var(--card-light);
-    border: 2px solid var(--border-light);
-    box-shadow: 6px 6px 0px var(--text-light);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 2rem;
+    break-inside: avoid;
     overflow: hidden;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    break-inside: avoid;
+    position: relative;
+    border-radius: 0px;
+    background-color: var(--tone-surface);
 }
 
-/* Grid items dengan aspect ratio berbeda untuk dinamis layout */
-.photo-card[data-span="tall"],
-.photo-card[data-span="wide"],
-.photo-card[data-span="large"] {
-    break-inside: avoid;
-    margin-bottom: 2rem;
-}
-
-body.dark .photo-card {
-    background-color: var(--card-dark);
-    border: 2px solid var(--border-dark);
-    box-shadow: 6px 6px 0px var(--text-dark-secondary);
+.photo-card-inner {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--tone-surface-alt);
 }
 
 .photo-card img {
@@ -222,231 +927,69 @@ body.dark .photo-card {
     display: block;
     object-fit: contain;
     image-orientation: from-image;
-    transition: filter 0.4s ease;
-}
-
-.photo-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 10px 10px 0px var(--text-light);
-}
-
-body.dark .photo-card:hover {
-    box-shadow: 10px 10px 0px var(--text-dark-secondary);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
 }
 
 .photo-card:hover img {
-    filter: grayscale(0%);
+    transform: scale(1.02);
 }
 
-/* KUNCI FIX UNTUK KOTAK KOSONG */
+/* 3D Tag on photo card */
+.photo-tag-3d {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--tone-contrast);
+    color: var(--tone-surface);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.25rem 0.6rem;
+    letter-spacing: 0.08em;
+    border-top: 2px solid var(--tone-border);
+    border-left: 2px solid var(--tone-border);
+    z-index: 2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.photo-card:hover .photo-tag-3d {
+    background-color: var(--solar-amber);
+    color: #12131C;
+}
+
+/* Empty gallery placeholder */
 .empty-gallery {
     grid-column: 1 / -1;
-    background-color: var(--card-light) !important;
-    border: 2px solid var(--border-light) !important;
-    box-shadow: 6px 6px 0px var(--text-light) !important;
-    transition: all 0.3s ease;
-}
-
-body.dark .empty-gallery {
-    background-color: var(--card-dark) !important;
-    border-color: var(--border-dark) !important;
-    box-shadow: 6px 6px 0px var(--text-dark-secondary) !important;
+    background-color: var(--tone-surface);
+    border: 2.5px dashed var(--tone-border);
+    box-shadow: 6px 6px 0 var(--shadow-edge);
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .empty-gallery i {
-    color: var(--text-light-secondary);
+    color: var(--tone-muted);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
     opacity: 0.5;
 }
 
-body.dark .empty-gallery i {
-    color: var(--text-dark-secondary);
+/* Animation utilities */
+.fade-in {
+    animation: fadeInCard 0.5s ease-out forwards;
 }
 
-.photo-card:hover img {
-    filter: grayscale(0%);
-}
-
-/* ============================================
-   NAVBAR STYLING
-   ============================================ */
-#navbar {
-    backdrop-filter: blur(8px);
-    background-color: var(--card-light);
-    border-bottom: 2px solid var(--border-light);
-    box-shadow: 0 4px 0px var(--text-light);
-    transition: all 0.3s ease;
-}
-
-body.dark #navbar {
-    background-color: var(--card-dark);
-    border-bottom-color: var(--border-dark);
-    box-shadow: 0 4px 0px var(--text-dark-secondary);
-}
-
-/* Navigation Buttons */
-.nav-btn {
-    padding: 0.5rem 0.75rem;
-    border: 2px solid var(--border-light);
-    background-color: transparent;
-    color: var(--text-light);
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-body.dark .nav-btn {
-    border-color: var(--border-dark);
-    color: var(--text-dark);
-}
-
-.nav-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 3px 3px 0px var(--text-light);
-}
-
-body.dark .nav-btn:hover {
-    box-shadow: 3px 3px 0px var(--text-dark-secondary);
-}
-
-.nav-btn.active {
-    background-color: var(--text-light);
-    color: var(--card-light);
-    box-shadow: 2px 2px 0px var(--text-light);
-}
-
-body.dark .nav-btn.active {
-    background-color: var(--saweria-yellow);
-    color: var(--bg-dark);
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4), 2px 2px 0px var(--text-dark-secondary);
-}
-
-/* Scroll section targeting */
-.scroll-section {
-    scroll-margin-top: 120px;
-}
-
-/* ============================================
-   THEME TOGGLE BUTTON
-   ============================================ */
-.theme-toggle {
-    background-color: var(--text-light);
-    color: var(--bg-light);
-    font-size: 1.25rem;
-    box-shadow: 3px 3px 0px var(--text-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 2.75rem;
-    height: 2.75rem;
-    border: 2px solid var(--border-light);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0px var(--text-light);
-}
-
-body.dark .theme-toggle {
-    background-color: var(--saweria-yellow);
-    color: var(--bg-dark);
-    border-color: var(--text-dark);
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5), 3px 3px 0px var(--text-dark-secondary);
-}
-
-body.dark .theme-toggle:hover {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 5px 5px 0px var(--text-dark-secondary);
-}
-
-/* Icon visibility control */
-.theme-toggle i.fa-moon {
-    display: inline;
-}
-
-.theme-toggle i.fa-sun {
-    display: none;
-}
-
-body.dark .theme-toggle i.fa-moon {
-    display: none;
-}
-
-body.dark .theme-toggle i.fa-sun {
-    display: inline;
-}
-
-/* ============================================
-   TRAKTIR KOPI BUTTON
-   ============================================ */
-.btn-saweria {
-    background: linear-gradient(135deg, var(--saweria-yellow) 0%, #ffed4e 50%, var(--saweria-yellow) 100%);
-    color: #1a1a2e !important;
-    border: 2px solid #1a1a2e !important;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 4px 4px 0px #1a1a2e !important;
-    transition: all 0.3s ease;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-}
-
-.btn-saweria:hover {
-    transform: translate(-2px, -2px) !important;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 6px 6px 0px #1a1a2e !important;
-    background: linear-gradient(135deg, #ffed4e 0%, var(--saweria-yellow) 50%, #ffed4e 100%);
-}
-
-.btn-saweria:active {
-    transform: translate(0, 0) !important;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 2px 2px 0px #1a1a2e !important;
-}
-
-body.dark .btn-saweria {
-    background: linear-gradient(135deg, var(--saweria-yellow) 0%, #ffed4e 50%, var(--saweria-yellow) 100%);
-    color: var(--bg-dark) !important;
-    border-color: var(--text-dark) !important;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 4px 4px 0px var(--text-dark-secondary) !important;
-}
-
-body.dark .btn-saweria:hover {
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 6px 6px 0px var(--text-dark-secondary) !important;
-}
-
-/* ============================================
-   SECTION HEADINGS & TEXT
-   ============================================ */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-light);
-    transition: color 0.3s ease;
-}
-
-body.dark h1,
-body.dark h2,
-body.dark h3,
-body.dark h4,
-body.dark h5,
-body.dark h6 {
-    color: var(--text-dark);
-}
-
-p {
-    color: var(--text-light);
-    transition: color 0.3s ease;
-}
-
-body.dark p {
-    color: var(--text-dark);
-}
-
-a {
-    color: inherit;
-    transition: color 0.3s ease;
-}
-
-body.dark a {
-    color: var(--text-dark);
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
